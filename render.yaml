@@ -3,6 +3,9 @@ services:
     name: task-management-system
     env: java
     plan: free
-    buildCommand: ./mvnw -DskipTests package
-    startCommand: java -jar target/*.jar
+    buildCommand: ./mvnw clean package
+    startCommand: java -jar target/Project-2-0.0.1-SNAPSHOT.jar
     autoDeploy: true
+    envVars:
+      - key: PORT
+        value: 8080
