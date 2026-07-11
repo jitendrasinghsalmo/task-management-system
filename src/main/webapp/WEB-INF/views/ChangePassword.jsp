@@ -1,0 +1,152 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Change Password - Task Workspace</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* DARK MODE: Royal Violet Palette */
+            --bg-body: linear-gradient(135deg, #0f172a 0%, #2e1065 40%, #4c1d95 70%, #6d28d9 100%);
+            --card-base: #080f1d;
+            --text-heading: #ffffff;
+            --text-desc: #ffffff;
+            --form-input-bg: #ffffff;
+            --form-text: #000000;
+        }
+
+        [data-theme="light"] {
+            /* LIGHT MODE: Haldi/Gold Palette */
+            --bg-body: linear-gradient(135deg, #fef08a 0%, #fef9c3 50%, #fef08a 100%);
+            --card-base: #ffffff;
+            --text-heading: #000000;
+            --text-desc: #1e293b;
+            --form-input-bg: #f8fafc;
+            --form-text: #000000;
+        }
+
+        body {
+            background: var(--bg-body);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-heading);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: all 0.4s ease;
+        }
+
+        .split-auth-container {
+            width: 100%;
+            max-width: 850px;
+            background: var(--card-base);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .left-panel {
+            background: linear-gradient(135deg, #6d28d9 0%, #4c1d95 100%);
+            padding: 40px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .back-arrow-btn {
+            width: 44px; height: 44px; border-radius: 12px;
+            background: rgba(255,255,255,0.1); color: white;
+            display: flex; align-items: center; justify-content: center;
+            text-decoration: none; border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .right-panel { padding: 40px; }
+
+        .form-control {
+            background: var(--form-input-bg) !important;
+            color: var(--form-text) !important;
+            border: 2px solid #cbd5e1;
+            height: 50px;
+            font-weight: 800 !important;
+        }
+
+        .password-group { position: relative; }
+        .toggle-password {
+            position: absolute; right: 15px; top: 50%;
+            transform: translateY(-50%); cursor: pointer; color: #64748b;
+        }
+
+        .theme-switch {
+            position: absolute; top: 20px; right: 20px;
+            cursor: pointer; font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body data-theme="dark">
+
+<div class="split-auth-container">
+    <div class="theme-switch" onclick="toggleTheme()">
+        <i class="fa-solid fa-circle-half-stroke"></i>
+    </div>
+    <div class="row g-0">
+        <div class="col-md-5 left-panel">
+            <a href="${pageContext.request.contextPath}/" class="back-arrow-btn"><i class="fa-solid fa-arrow-left"></i></a>
+            <div class="mt-4">
+                <h3 class="fw-bold">Security Update</h3>
+                <p class="mt-3 fw-bold" style="color: #e2e8f0;">Update account internal keys seamlessly to keep your workspace protected.</p>
+            </div>
+        </div>
+        <div class="col-md-7 right-panel">
+            <h4 class="fw-bold mb-4">Change Password</h4>
+            
+            <form action="${pageContext.request.contextPath}/updatePassword" method="POST">
+                <div class="mb-3 password-group">
+                    <label class="form-label fw-bold">Old Password</label>
+                    <input type="password" name="oldPassword" class="form-control" id="oldPass" required>
+                    <i class="fa-solid fa-eye toggle-password" onclick="toggleVisibility('oldPass')"></i>
+                </div>
+                <div class="mb-3 password-group">
+                    <label class="form-label fw-bold">New Password</label>
+                    <input type="password" name="newPassword" class="form-control" id="newPass" required>
+                    <i class="fa-solid fa-eye toggle-password" onclick="toggleVisibility('newPass')"></i>
+                </div>
+                <div class="mb-4 password-group">
+                    <label class="form-label fw-bold">Confirm New Password</label>
+                    <input type="password" name="confirmPassword" class="form-control" id="confPass" required>
+                    <i class="fa-solid fa-eye toggle-password" onclick="toggleVisibility('confPass')"></i>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 fw-bold py-3">Update Password</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleVisibility(id) {
+        const input = document.getElementById(id);
+        const icon = input.nextElementSibling;
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.replace("fa-eye", "fa-eye-slash");
+        } else {
+            input.type = "password";
+            icon.classList.replace("fa-eye-slash", "fa-eye");
+        }
+    }
+
+    function toggleTheme() {
+        const body = document.body;
+        const currentTheme = document.documentElement.getAttribute("data-theme");
+        document.documentElement.setAttribute("data-theme", currentTheme === "light" ? "dark" : "light");
+    }
+</script>
+</body>
+</html>
