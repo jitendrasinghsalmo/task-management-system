@@ -34,7 +34,7 @@ public class SecurityConfig {
             .authenticationProvider(authenticationProvider()) 
             .authorizeHttpRequests(auth -> auth
             	    // 1. Pehle apne secret URL ko bhi permitAll me add karo taaki bina login chal sake
-            	    .requestMatchers("/", "/loginPage", "/registerPage", "/register", "/forgotPassword", "/sendOtp", "/resetPassword", "/createSecretAdminJitendra", "/WEB-INF/views/**", "/css/**", "/js/**", "/images/**").permitAll()
+            	    .requestMatchers("/", "/loginPage", "/registerPage", "/register", "/forgotPassword", "/sendOtp", "/resetPassword", "/createSecretAdminJitendra", "/index.html", "/styles.css", "/app.js", "/WEB-INF/views/**", "/css/**", "/js/**", "/images/**").permitAll()
             	    
             	    // 2. hasAuthority ki jagah .hasRole("ADMIN") karo 
             	    .requestMatchers("/admin/**").hasRole("ADMIN") 

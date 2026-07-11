@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: task-management-system
+    env: java
+    plan: free
+    buildCommand: ./mvnw -DskipTests package
+    startCommand: java -jar target/*.jar
+    autoDeploy: true
