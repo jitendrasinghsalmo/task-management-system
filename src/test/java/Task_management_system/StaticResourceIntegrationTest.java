@@ -11,8 +11,10 @@ import org.junit.jupiter.api.Test;
 class StaticResourceIntegrationTest {
 
     @Test
-    void shouldExposeIndexHtmlFromStaticResources() {
-        Path indexPath = Paths.get("src/main/resources/static/index.html");
-        assertTrue(Files.exists(indexPath), "Expected an index.html file in src/main/resources/static/");
+    void shouldExposeFrontendFilesForNetlify() {
+        Path indexPath = Paths.get("frontend/index.html");
+        Path netlifyConfigPath = Paths.get("frontend/netlify.toml");
+        assertTrue(Files.exists(indexPath), "Expected an index.html file in the frontend folder");
+        assertTrue(Files.exists(netlifyConfigPath), "Expected a netlify.toml file in the frontend folder");
     }
 }
