@@ -9,4 +9,4 @@ services:
       - key: PORT
         value: 8080
       - key: DATABASE_URL
-        value: postgresql://neondb_owner:npg_uZMgIGSpNs25@ep-late-math-awxt39cn-pooler.c-12.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+        value: jdbc:postgresql://neondb_owner:npg_uZMgIGSpNs25@ep-late-math-awxt39cn-pooler.c-12.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
