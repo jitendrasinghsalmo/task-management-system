@@ -35,8 +35,6 @@ EXPOSE 8080
 # Set environment variables
 ENV PORT=8080
 ENV JAVA_OPTS=""
-ARG DATABASE_URL=jdbc:postgresql://neondb_owner:npg_uZMgIGSpNs25@ep-late-math-awxt39cn-pooler.c-12.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
-ENV DATABASE_URL=${DATABASE_URL}
 
 # Run the application
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -Dspring.datasource.url=jdbc:postgresql://neondb_owner:npg_uZMgIGSpNs25@ep-late-math-awxt39cn-pooler.c-12.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require -Djava.security.egd=file:/dev/./urandom -jar app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
