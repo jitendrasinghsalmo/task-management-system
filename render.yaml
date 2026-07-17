@@ -8,5 +8,15 @@ services:
     envVars:
       - key: PORT
         value: 8080
+      - key: DB_HOST
+        value: ep-late-math-awxt39cn-pooler.c-12.us-east-1.aws.neon.tech
+      - key: DB_PORT
+        value: 5432
+      - key: DB_NAME
+        value: neondb
+      - key: DB_USER
+        value: neondb_owner
+      - key: DB_PASSWORD
+        value: npg_uZMgIGSpNs25
       - key: DATABASE_URL
         value: jdbc:postgresql://neondb_owner:npg_uZMgIGSpNs25@ep-late-math-awxt39cn-pooler.c-12.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
