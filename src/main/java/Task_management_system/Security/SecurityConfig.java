@@ -31,14 +31,18 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
-            .authenticationProvider(authenticationProvider()) 
+            .authenticationProvider(authenticationProvider())
+            .headers(headers -> headers
+                .frameOptions(frame -> frame.sameOrigin())
+                .httpStrictTransportSecurity(hsts -> hsts.disable())
+            )
             .authorizeHttpRequests(auth -> auth
             	    // 1. Pehle apne secret URL ko bhi permitAll me add karo taaki bina login chal sake
             	    .requestMatchers("/", "/loginPage", "/registerPage", "/register", "/forgotPassword", "/sendOtp", "/resetPassword", "/createSecretAdminJitendra", "/WEB-INF/views/**", "/css/**", "/js/**", "/images/**").permitAll()
-            	    
-            	    // 2. hasAuthority ki jagah .hasRole("ADMIN") karo 
-            	    .requestMatchers("/admin/**").hasRole("ADMIN") 
-            	    
+
+            	    // 2. hasAuthority ki jagah .hasRole("ADMIN") karo
+            	    .requestMatchers("/admin/**").hasRole("ADMIN")
+
             	    .anyRequest().authenticated()
             	)
             .formLogin(form -> form
@@ -56,6 +60,6 @@ public class SecurityConfig {
             );
 
         return http.build();
-    
+
     }
 }
