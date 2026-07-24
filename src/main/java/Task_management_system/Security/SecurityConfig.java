@@ -31,31 +31,45 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
-            .authenticationProvider(authenticationProvider()) 
+            .authenticationProvider(authenticationProvider())
+            .headers(headers -> headers
+                .frameOptions(frame -> frame.sameOrigin())
+                .httpStrictTransportSecurity(hsts -> hsts.disable())
+            )
             .authorizeHttpRequests(auth -> auth
-            	    // 1. Pehle apne secret URL ko bhi permitAll me add karo taaki bina login chal sake
-            	    .requestMatchers("/", "/loginPage", "/registerPage", "/register", "/forgotPassword", "/sendOtp", "/resetPassword", "/createSecretAdminJitendra", "/WEB-INF/views/**", "/css/**", "/js/**", "/images/**").permitAll()
-            	    
-            	    // 2. hasAuthority ki jagah .hasRole("ADMIN") karo 
-            	    .requestMatchers("/admin/**").hasRole("ADMIN") 
-            	    
-            	    .anyRequest().authenticated()
-            	)
+                .requestMatchers(
+                    "/",
+                    "/loginPage",
+                    "/registerPage",
+                    "/register",
+                    "/forgotPassword",
+                    "/sendOtp",
+                    "/resetPassword",
+                    "/createSecretAdminJitendra",
+                    "/WEB-INF/views/**",
+                    "/css/**",
+                    "/js/**",
+                    "/images/**"
+                ).permitAll()
+
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+
+                .anyRequest().authenticated()
+            )
             .formLogin(form -> form
-            	    .loginPage("/loginPage")
-            	    .loginProcessingUrl("/login")
-            	    .usernameParameter("email")
-            	    .passwordParameter("password")
-            	    .defaultSuccessUrl("/", true) // <-- Yahan "/addTask" hata kar sirf "/" likho
-            	    .failureUrl("/loginPage?error")
-            	    .permitAll()
-            	)
+                .loginPage("/loginPage")
+                .loginProcessingUrl("/login")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/", true)
+                .failureUrl("/loginPage?error")
+                .permitAll()
+            )
             .logout(logout -> logout
                 .logoutSuccessUrl("/loginPage?logout")
                 .permitAll()
             );
 
         return http.build();
-    
     }
 }
